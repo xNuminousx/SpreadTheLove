@@ -1,0 +1,11 @@
+name: SpreadTheLove
+version: 1.0
+author: Numin
+main: me.numin.love.Main
+description: Spread the love!
+
+commands:
+  stl:
+    usage: /<command>
+    aliases: spreadthelove
+    description: Shows how to love.

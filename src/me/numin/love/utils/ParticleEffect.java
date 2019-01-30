@@ -1,4 +1,4 @@
-package me.numin.love;
+package me.numin.love.utils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -14,7 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-import me.numin.love.ReflectionHandler.PackageType;
+import me.numin.love.utils.ReflectionHandler.PackageType;
 
 /**
  * <b>ParticleEffect Library</b>

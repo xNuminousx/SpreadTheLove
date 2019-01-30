@@ -1,10 +1,13 @@
-package me.numin.love;
+package me.numin.love.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import me.numin.love.Main;
+import me.numin.love.trails.LoveTrail;
 
 public class Commands implements CommandExecutor {
 	

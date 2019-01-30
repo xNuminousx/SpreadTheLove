@@ -1,4 +1,4 @@
-package me.numin.love;
+package me.numin.love.trails;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -6,7 +6,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import me.numin.love.Main;
 import me.numin.love.Main.TrailType;
+import me.numin.love.utils.ParticleEffect;
 
 public class LoveTrail implements Listener {
 

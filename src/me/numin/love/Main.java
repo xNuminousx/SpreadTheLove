@@ -7,6 +7,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import me.numin.love.commands.Commands;
+import me.numin.love.trails.LoveTrail;
+
 public class Main extends JavaPlugin implements Listener {
 	
 	public static Main plugin;

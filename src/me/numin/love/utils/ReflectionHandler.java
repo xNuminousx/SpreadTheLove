@@ -1,4 +1,4 @@
-package me.numin.love;
+package me.numin.love.utils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

@@ -33,6 +33,7 @@ public class LoveTrail implements Listener {
 		} else if (trailtype == TrailType.STILL) {
 			//still animation
 			ParticleEffect.HEART.display(player.getLocation(), 2, 2, 2, 0, 1);
+			
 		} else if (trailtype == TrailType.SNEAK && player.isSneaking()) {
 			//heart animation
 			Location location = player.getLocation();

@@ -5,7 +5,7 @@ main: me.numin.love.Main
 description: Spread the love!
 
 commands:
-  stl:
+  spreadthelove:
     usage: /<command>
-    aliases: spreadthelove
-    description: Shows how to love.
+    aliases: stl
+    description: Shows you how to love.

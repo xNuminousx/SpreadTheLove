@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import me.numin.love.Main;
 import me.numin.love.actions.Hug;
 import me.numin.love.api.API;
+import me.numin.love.gui.GUI;
 import me.numin.love.trails.LoveTrail;
 
 public class Commands implements CommandExecutor {
@@ -48,6 +49,12 @@ public class Commands implements CommandExecutor {
 				sender.sendMessage("");
 				
 				//Commands list
+				
+				sender.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "To open GUI:");
+				sender.sendMessage(bullet + ChatColor.AQUA + "/stl gui");
+				
+				sender.sendMessage("");
+				
 				sender.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "To hug:");
 				sender.sendMessage(bullet + ChatColor.AQUA + "/stl hug [target username]");
 				
@@ -93,6 +100,12 @@ public class Commands implements CommandExecutor {
 							p.sendMessage(bullet + ChatColor.RED + "LoveTrail disabled");
 						}
 						return true;
+					
+					//GUI command	
+					} else if (args[0].equalsIgnoreCase("gui")) {
+						GUI.openGUI(p);
+						return true;
+						
 					} else {
 						sender.sendMessage(ChatColor.RED + "Unknown command! Try: " + ChatColor.YELLOW + "/spreadthelove" + ChatColor.RED + " or " + ChatColor.YELLOW + "/stl");
 						return true;
@@ -124,7 +137,7 @@ public class Commands implements CommandExecutor {
 								new Hug((Player) sender, target);
 								return true;
 							} else {
-								sender.sendMessage("The player may be offline or does not exist.");
+								sender.sendMessage(bullet + ChatColor.RED + "The player may be offline or does not exist.");
 								return true;
 							}
 						}

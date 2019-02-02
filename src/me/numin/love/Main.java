@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.numin.love.commands.Commands;
+import me.numin.love.gui.GUIListener;
 import me.numin.love.trails.LoveTrail;
 
 public class Main extends JavaPlugin implements Listener {
@@ -22,6 +23,7 @@ public class Main extends JavaPlugin implements Listener {
 		getCommand("stl").setExecutor(new Commands());
 		Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
 		Bukkit.getServer().getPluginManager().registerEvents(new LoveTrail(null), plugin);
+		Bukkit.getServer().getPluginManager().registerEvents(new GUIListener(), plugin);
 		
 		plugin.getLogger().info("Successfully enabled SpreadTheLove v" + plugin.getDescription().getVersion());
 	}

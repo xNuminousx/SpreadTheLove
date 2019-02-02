@@ -44,6 +44,7 @@ public class Commands implements CommandExecutor {
 				//Header (information about SpreadTheLove)
 				sender.sendMessage(ChatColor.LIGHT_PURPLE + "--------------------");
 				sender.sendMessage(ChatColor.DARK_RED + "" + ChatColor.BOLD + "♡ SPREAD THE LOVE ♡");
+				sender.sendMessage(ChatColor.DARK_GRAY + "         - Numin");
 				sender.sendMessage(ChatColor.LIGHT_PURPLE + "--------------------");
 				
 				sender.sendMessage("");
@@ -67,7 +68,6 @@ public class Commands implements CommandExecutor {
 				
 				sender.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "To wear love:");
 				sender.sendMessage(bullet + ChatColor.AQUA + "/stl lovetrail");
-				sender.sendMessage("  " + ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "[used for enable & disable]");
 				return true;
 			
 			

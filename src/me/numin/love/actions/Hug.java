@@ -1,5 +1,7 @@
 package me.numin.love.actions;
 
+import java.util.Random;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -9,6 +11,8 @@ import me.numin.love.Main;
 import me.numin.love.utils.ParticleEffect;
 
 public class Hug {
+	
+	private String bullet = ChatColor.DARK_RED + "♡ ";
 	
 	int currPoint;
 	long time;
@@ -38,7 +42,17 @@ public class Hug {
 				}
 			}.runTaskTimer(Main.plugin, 0, 3);
 			
-			sender.sendMessage(ChatColor.DARK_RED + "♡ " + ChatColor.LIGHT_PURPLE + "Hug successfully given to " + ChatColor.YELLOW + targetName);
+			Random random = new Random();
+			
+			int r = random.nextInt(3);
+			if (r == 1) {
+				sender.sendMessage(bullet + ChatColor.LIGHT_PURPLE + "That hug was super warm..... Hopefully " + ChatColor.YELLOW + targetName + " likes it");
+			} else if (r == 2) {
+				sender.sendMessage(bullet + ChatColor.YELLOW + targetName+ ChatColor.LIGHT_PURPLE + " got your SUPER hug!");
+			} else {
+				sender.sendMessage(bullet + ChatColor.LIGHT_PURPLE + "Everyone likes long hugs on the beach. " + ChatColor.YELLOW + targetName + ChatColor.LIGHT_PURPLE + " should too.... right?");
+			}
+			
 		} else {
 			sender.sendMessage(ChatColor.DARK_RED + "♡ " + ChatColor.RED + "That target is not in your world.");
 		}

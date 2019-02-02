@@ -14,12 +14,6 @@ public class Main extends JavaPlugin implements Listener {
 	
 	public static Main plugin;
 	public ArrayList<Player> love = new ArrayList<Player>();
-	public static boolean playTrail = false;
-	public static boolean enableLGBT;
-	
-	public enum TrailType {
-		MOVE, STILL, SNEAK
-	}
 	
 	public void onEnable() {
 		plugin = this;
@@ -35,12 +29,4 @@ public class Main extends JavaPlugin implements Listener {
 		
 		plugin.getLogger().info("Successfully enabled SpreadTheLove v" + plugin.getDescription().getVersion());
 	}
-	public static boolean enableLGBT() {
-		return enableLGBT;
-	}
-	public static boolean enableLGBT(boolean arg) {
-		enableLGBT = arg;
-		return enableLGBT;
-	}
-
 }

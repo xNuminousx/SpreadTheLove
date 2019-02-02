@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import me.numin.love.Main;
 import me.numin.love.actions.Hug;
+import me.numin.love.api.API;
 import me.numin.love.trails.LoveTrail;
 
 public class Commands implements CommandExecutor {
@@ -59,6 +60,7 @@ public class Commands implements CommandExecutor {
 				
 				sender.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "To wear love:");
 				sender.sendMessage(bullet + ChatColor.AQUA + "/stl lovetrail");
+				sender.sendMessage("  " + ChatColor.DARK_GRAY + "" + ChatColor.ITALIC + "[used for enable & disable]");
 				return true;
 			
 			
@@ -80,15 +82,15 @@ public class Commands implements CommandExecutor {
 					//Trail command	
 					} else if (args[0].equalsIgnoreCase("lovetrail")) {
 						
-						if (Main.playTrail == false) {
+						if (API.playTrail == false) {
 							Main.plugin.love.add(p);
-							Main.playTrail = true;
+							API.playTrail = true;
 							new LoveTrail(p);
-							p.sendMessage("Trail enabled");
+							p.sendMessage(bullet + ChatColor.GREEN + "LoveTrail enabled");
 						} else {
 							Main.plugin.love.remove(p);
-							Main.playTrail = false;
-							p.sendMessage("Trail disabled");
+							API.playTrail = false;
+							p.sendMessage(bullet + ChatColor.RED + "LoveTrail disabled");
 						}
 						return true;
 					} else {
@@ -108,11 +110,11 @@ public class Commands implements CommandExecutor {
 					
 					//Enable/Disable "pride mode"
 					if (args[0].equalsIgnoreCase("lovetrail") & args[1].equalsIgnoreCase("pride")) {
-						if (!Main.enableLGBT()) {
-							Main.enableLGBT(true);
+						if (!API.enableLGBT()) {
+							API.enableLGBT(true);
 							p.sendMessage(prideEnabled);
 						} else {
-							Main.enableLGBT(false);
+							API.enableLGBT(false);
 							p.sendMessage(prideDisabled);
 						}
 						return true;

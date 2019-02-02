@@ -6,9 +6,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
 import me.numin.love.Main;
-import me.numin.love.Main.TrailType;
+import me.numin.love.api.API;
+import me.numin.love.api.API.TrailType;
 import me.numin.love.utils.ParticleEffect;
 
 public class LoveTrail implements Listener {
@@ -28,21 +30,23 @@ public class LoveTrail implements Listener {
 	public void progress(Player player, TrailType trailtype) {
 		if (trailtype == TrailType.MOVE) {
 			//running animation
-			ParticleEffect.INSTANT_SPELL.display(player.getLocation(), 3, 2, 3, 0, 1);
+			ParticleEffect.INSTANT_SPELL.display(player.getLocation(), 2, 2, 2, 0, 1);
 			
 		} else if (trailtype == TrailType.STILL) {
 			//still animation
-			ParticleEffect.HEART.display(player.getLocation(), 2, 2, 2, 0, 1);
+			ParticleEffect.HEART.display(player.getLocation(), 1, 2, 1, 0, 1);
 			
 		} else if (trailtype == TrailType.SNEAK && player.isSneaking()) {
 			//heart animation
-			Location location = player.getLocation();
+			Location location = player.getEyeLocation();
+			Vector direction = location.getDirection().normalize();
+			location.add(direction.getX(), direction.getY(), direction.getZ());
 			
 			int points = 20;
 			double size = 20;
-			double posHeight = 3;
+			double posHeight = 1;
 			ParticleEffect effect = ParticleEffect.RED_DUST;
-			boolean isRainbow = Main.enableLGBT();
+			boolean isRainbow = API.enableLGBT();
 			float dustSpeed;
 			if (isRainbow) {
 				dustSpeed = 1;

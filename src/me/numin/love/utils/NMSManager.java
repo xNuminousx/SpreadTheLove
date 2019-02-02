@@ -9,6 +9,9 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+* Created by chasechocolate.
+*/
 public class NMSManager {
     private static NMSManager instance;
 

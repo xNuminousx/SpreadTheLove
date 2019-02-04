@@ -30,8 +30,8 @@ public class Kiss {
 			double z = 0.2;
 			targetEye.add(x, y, z);
 			senderEye.add(x, y, z);
-			ParticleEffect.WAKE.display(targetEye, 0, 0, 0, 0.02F, 5);
-			ParticleEffect.WAKE.display(senderEye, 0, 0, 0, 0.02F, 5);
+			ParticleEffect.WATER_WAKE.display(0, 0, 0, 0.02F, 5, targetEye, 10);
+			ParticleEffect.WATER_WAKE.display(0, 0, 0, 0.02F, 5, senderEye, 10);
 			
 		} else {
 			sender.sendMessage(bullet + ChatColor.RED + "That target is not in your world.");

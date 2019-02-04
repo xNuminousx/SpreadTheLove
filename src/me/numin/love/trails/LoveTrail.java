@@ -44,7 +44,7 @@ public class LoveTrail implements Listener {
 			
 			int points = 20;
 			double size = 20;
-			double posHeight = 2.7;
+			double posHeight = 2.5;
 			ParticleEffect effect = ParticleEffect.RED_DUST;
 			boolean isRainbow = API.enableLGBT();
 			float dustSpeed;

@@ -29,36 +29,23 @@ public class Hug {
 			String from = ChatColor.DARK_RED + "From: " + senderName;
 			target.sendTitle(header, from);
 			
-			Location targetLocation = target.getLocation();
-			ParticleEffect.FIREWORKS_SPARK.display(targetLocation, 0, 0, 0, (float) 0.2, 20);
-			ParticleEffect.CLOUD.display(targetLocation, 3, 1, 3, 0.1F, 10);
 			new BukkitRunnable() {
 				@Override
 				public void run() {
-					targetEffects(target);
+					heartSpiral(target);
 					if (System.currentTimeMillis() > time + 2000) {
 						cancel();
 					}
 				}
 			}.runTaskTimer(Main.plugin, 0, 3);
-			
-			Random random = new Random();
-			
-			int r = random.nextInt(3);
-			if (r == 1) {
-				sender.sendMessage(bullet + ChatColor.LIGHT_PURPLE + "That hug was super warm..... Hopefully " + ChatColor.YELLOW + targetName + " likes it");
-			} else if (r == 2) {
-				sender.sendMessage(bullet + ChatColor.YELLOW + targetName+ ChatColor.LIGHT_PURPLE + " got your SUPER hug!");
-			} else {
-				sender.sendMessage(bullet + ChatColor.LIGHT_PURPLE + "Everyone likes long hugs on the beach. " + ChatColor.YELLOW + targetName + ChatColor.LIGHT_PURPLE + " should too.... right?");
-			}
+			sender.sendMessage(randomizedMessage(targetName));
 			
 		} else {
-			sender.sendMessage(ChatColor.DARK_RED + "♡ " + ChatColor.RED + "That target is not in your world.");
+			sender.sendMessage(bullet + ChatColor.RED + "That target is not in your world.");
 		}
 	}
 	
-	public void targetEffects(Player target) {
+	public void heartSpiral(Player target) {
 		Location targetLocation = target.getLocation();
 		
 		for (int i = 0; i < 5; i++) {
@@ -72,6 +59,21 @@ public class Hug {
 			targetLocation.add(x, 0.5, z);
 			ParticleEffect.HEART.display(targetLocation, 0, 0, 0, 0, 1);
 			targetLocation.subtract(x, 0.5, z);
+		}
+	}
+	
+	public String randomizedMessage(String targetName) {
+		Random random = new Random();
+		int r = random.nextInt(4);
+		
+		if (r == 1) {
+			return bullet + ChatColor.LIGHT_PURPLE + "That hug was super warm..... Hopefully " + ChatColor.YELLOW + targetName + ChatColor.LIGHT_PURPLE + " likes it";
+		} else if (r == 2) {
+			return bullet + ChatColor.YELLOW + targetName + ChatColor.LIGHT_PURPLE + " got your SUPER hug!";
+		} else if (r == 3) {
+			return bullet + ChatColor.YELLOW + targetName + ChatColor.LIGHT_PURPLE + " likes the way your hair smells.";
+		} else {
+			return bullet + ChatColor.LIGHT_PURPLE + "Everyone likes long hugs on the beach. " + ChatColor.YELLOW + targetName + ChatColor.LIGHT_PURPLE + " should too.... right?";
 		}
 	}
 }

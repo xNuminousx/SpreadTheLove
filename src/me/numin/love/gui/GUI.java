@@ -19,6 +19,7 @@ public class GUI {
 		Inventory inv = Bukkit.createInventory(player, 9, guiName);
 		
 		inv.setItem(0, API.createItem(Material.RED_ROSE, "To Hug", ChatColor.DARK_RED, Arrays.asList("Hug your lover!")));
+		inv.setItem(4, API.createItem(Material.YELLOW_FLOWER, "To Kiss", ChatColor.YELLOW, Arrays.asList("Give 'em a big wet kiss!")));
 		
 		player.openInventory(inv);
 	}

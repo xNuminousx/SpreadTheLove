@@ -28,7 +28,7 @@ public class Main extends JavaPlugin implements Listener {
 		plugin.getLogger().info("Successfully enabled SpreadTheLove v" + plugin.getDescription().getVersion());
 	}
 	public void onDisable() {
-		
+		love.clear();
 		plugin.getLogger().info("Successfully enabled SpreadTheLove v" + plugin.getDescription().getVersion());
 	}
 }

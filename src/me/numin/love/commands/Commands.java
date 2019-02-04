@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import me.numin.love.Main;
 import me.numin.love.actions.Hug;
+import me.numin.love.actions.Kiss;
 import me.numin.love.api.API;
 import me.numin.love.gui.GUI;
 import me.numin.love.trails.LoveTrail;
@@ -21,6 +22,7 @@ public class Commands implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String lable, String[] args) {
 		String bullet = ChatColor.DARK_RED + "♡ ";
 		String unspecifiedPlayer = bullet + ChatColor.RED + "Please specify a player.";
+		String invalidPlayer = bullet + ChatColor.RED + "That player may be offline or does not exist.";
 		
 		String prideEnabled = ChatColor.RED + "" + ChatColor.BOLD + "P" +
 								ChatColor.GOLD + "" + ChatColor.BOLD + "R" +
@@ -137,11 +139,21 @@ public class Commands implements CommandExecutor {
 								new Hug((Player) sender, target);
 								return true;
 							} else {
-								sender.sendMessage(bullet + ChatColor.RED + "The player may be offline or does not exist.");
+								sender.sendMessage(invalidPlayer);
 								return true;
 							}
 						}
 						return true;
+					} else if (args[0].equalsIgnoreCase("kiss") && !args[1].isEmpty()) {
+						for (Player target : Bukkit.getOnlinePlayers()) {
+							if (args[1].equalsIgnoreCase(target.getName())) {
+								new Kiss((Player) sender, target);
+								return true;
+							} else {
+								sender.sendMessage(invalidPlayer);
+								return true;
+							}
+						}
 					}
 				}
 			}

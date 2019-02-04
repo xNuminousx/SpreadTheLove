@@ -11,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import me.numin.love.actions.Hug;
+import me.numin.love.actions.Kiss;
 import me.numin.love.api.API;
 import me.numin.love.utils.AnvilGUI;
 import me.numin.love.utils.AnvilGUI.AnvilClickEvent;
@@ -64,6 +65,45 @@ public class GUIListener implements Listener {
             } catch (InstantiationException e) {
                 e.printStackTrace();
             }
+			return;
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("To Kiss")) {
+			event.setCancelled(true);
+			
+			GUI.openAnvil(player);
+            AnvilGUI gui = new AnvilGUI(player, new AnvilGUI.AnvilClickEventHandler() {
+
+				@Override
+				public void onAnvilClick(AnvilClickEvent event) {
+					if (event.getSlot() == AnvilGUI.AnvilSlot.OUTPUT) {
+						event.setWillClose(true);
+						event.setWillDestroy(true);
+						
+						for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+							if (onlinePlayer.getName().equalsIgnoreCase(event.getName())) {
+								new Kiss(player, onlinePlayer);
+							} else {
+								onlinePlayer.sendMessage(ChatColor.DARK_RED + "♡ " + ChatColor.RED + "The player may be offline or does not exist.");
+							}
+						}
+					} else {
+						event.setWillClose(false);
+						event.setWillDestroy(false);
+					}
+				}
+            	
+            });
+            gui.setSlot(AnvilGUI.AnvilSlot.INPUT_LEFT, API.createItem(Material.PAPER, "Enter Name"));
+            
+            try {
+                gui.open();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            }
+			
 			return;
 		} else {
 			event.setCancelled(true);

@@ -632,7 +632,7 @@ public enum ParticleEffect {
 	 */
 	private static boolean isWater(final Location location) {
 		final Material material = location.getBlock().getType();
-		return material == Material.WATER || material == Material.STATIONARY_WATER;
+		return material == Material.WATER || material == Material.WATER;
 	}
 
 	/**

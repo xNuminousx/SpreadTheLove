@@ -6,7 +6,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
 
 import me.numin.love.Main;
 import me.numin.love.api.API;
@@ -35,16 +34,17 @@ public class LoveTrail implements Listener {
 		} else if (trailtype == TrailType.STILL) {
 			//still animation
 			ParticleEffect.HEART.display(player.getLocation(), 1, 2, 1, 0, 1);
+			if (API.enableLGBT) {
+				ParticleEffect.RED_DUST.display(player.getLocation(), 1, 1, 1, 1, 5);
+			}
 			
 		} else if (trailtype == TrailType.SNEAK && player.isSneaking()) {
 			//heart animation
-			Location location = player.getEyeLocation();
-			Vector direction = location.getDirection().normalize();
-			location.add(direction.getX(), direction.getY(), direction.getZ());
+			Location location = player.getLocation();
 			
 			int points = 20;
 			double size = 20;
-			double posHeight = 1;
+			double posHeight = 2.7;
 			ParticleEffect effect = ParticleEffect.RED_DUST;
 			boolean isRainbow = API.enableLGBT();
 			float dustSpeed;

@@ -10,13 +10,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
+import me.numin.love.Main;
 import me.numin.love.actions.Hug;
 import me.numin.love.actions.Kiss;
 import me.numin.love.api.API;
+import me.numin.love.trails.LoveTrail;
 import me.numin.love.utils.AnvilGUI;
 import me.numin.love.utils.AnvilGUI.AnvilClickEvent;
 
 public class GUIListener implements Listener {
+	
+	private String bullet = ChatColor.DARK_RED + "♡ ";
 	
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {
@@ -27,6 +31,21 @@ public class GUIListener implements Listener {
 		
 		} else if (event.getCurrentItem() == null || event.getCurrentItem().getItemMeta() == null || event.getCurrentItem().getItemMeta().getDisplayName().equals(null)) {
 			event.setCancelled(true);
+			return;
+		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("To Wear Love")) {
+			event.setCancelled(true);
+			
+			if (API.playTrail == false) {
+				Main.plugin.love.add(player);
+				API.playTrail = true;
+				new LoveTrail(player);
+				player.sendMessage(bullet + ChatColor.GREEN + "LoveTrail enabled");
+			} else {
+				Main.plugin.love.remove(player);
+				API.playTrail = false;
+				player.sendMessage(bullet + ChatColor.RED + "LoveTrail disabled");
+			}
+			player.closeInventory();
 			return;
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("To Hug")) {
 			event.setCancelled(true);

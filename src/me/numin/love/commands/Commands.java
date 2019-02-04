@@ -23,6 +23,7 @@ public class Commands implements CommandExecutor {
 		String bullet = ChatColor.DARK_RED + "♡ ";
 		String unspecifiedPlayer = bullet + ChatColor.RED + "Please specify a player.";
 		String invalidPlayer = bullet + ChatColor.RED + "That player may be offline or does not exist.";
+		String unknownCommand = bullet + ChatColor.RED + "Unknown command! Try: " + ChatColor.YELLOW + "/spreadthelove" + ChatColor.RED + " or " + ChatColor.YELLOW + "/stl";
 		
 		String prideEnabled = ChatColor.RED + "" + ChatColor.BOLD + "P" +
 								ChatColor.GOLD + "" + ChatColor.BOLD + "R" +
@@ -107,9 +108,17 @@ public class Commands implements CommandExecutor {
 					} else if (args[0].equalsIgnoreCase("gui")) {
 						GUI.openGUI(p);
 						return true;
-						
+					} else if (args[0].equalsIgnoreCase("pride")) {
+						if (!API.enableLGBT()) {
+							API.enableLGBT(true);
+							p.sendMessage(prideEnabled);
+						} else {
+							API.enableLGBT(false);
+							p.sendMessage(prideDisabled);
+						}
+						return true;
 					} else {
-						sender.sendMessage(ChatColor.RED + "Unknown command! Try: " + ChatColor.YELLOW + "/spreadthelove" + ChatColor.RED + " or " + ChatColor.YELLOW + "/stl");
+						sender.sendMessage(unknownCommand);
 						return true;
 					}
 				} else {
@@ -121,19 +130,8 @@ public class Commands implements CommandExecutor {
 			//3 Word Commands	
 			} else if (args.length == 2) {
 				if (sender instanceof Player) {
-					Player p = (Player) sender;
 					
-					//Enable/Disable "pride mode"
-					if (args[0].equalsIgnoreCase("lovetrail") & args[1].equalsIgnoreCase("pride")) {
-						if (!API.enableLGBT()) {
-							API.enableLGBT(true);
-							p.sendMessage(prideEnabled);
-						} else {
-							API.enableLGBT(false);
-							p.sendMessage(prideDisabled);
-						}
-						return true;
-					} else if (args[0].equalsIgnoreCase("hug") && !args[1].isEmpty()) {
+					if (args[0].equalsIgnoreCase("hug") && !args[1].isEmpty()) {
 						for (Player target : Bukkit.getOnlinePlayers()) {
 							if (args[1].equalsIgnoreCase(target.getName())) {
 								new Hug((Player) sender, target);
@@ -154,7 +152,13 @@ public class Commands implements CommandExecutor {
 								return true;
 							}
 						}
+					} else {
+						sender.sendMessage(unknownCommand);
+						return false;
 					}
+				} else {
+					sender.sendMessage("You're not a player!");
+					return false;
 				}
 			}
 			return false;

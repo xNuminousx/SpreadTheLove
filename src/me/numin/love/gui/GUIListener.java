@@ -26,10 +26,10 @@ public class GUIListener implements Listener {
 	public void onInventoryClick(InventoryClickEvent event) {
 		Player player = (Player)event.getWhoClicked();
 		
-		if (event.getInventory().getName() != GUI.guiName) {
+		if (!event.getClickedInventory().getName().equalsIgnoreCase("Spread the Love!")) {
 			return;
 		
-		} else if (event.getCurrentItem() == null || event.getCurrentItem().getItemMeta() == null || event.getCurrentItem().getItemMeta().getDisplayName().equals(null)) {
+		} else if (event.getCurrentItem() == null || event.getCurrentItem().getItemMeta() == null || event.getCurrentItem().getItemMeta().getDisplayName().isEmpty()) {
 			event.setCancelled(true);
 			return;
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("To Wear Love")) {

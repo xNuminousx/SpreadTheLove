@@ -687,9 +687,9 @@ public enum ParticleEffect {
 
 		if (this == ParticleEffect.REDSTONE || this == ParticleEffect.RED_DUST) {
 			Color color = Color.fromRGB((int)(offsetX), (int)(offsetY), (int)(offsetZ));
-			center.getWorld().spawnParticle(mapParticleType(this), center, amount, offsetX, offsetY, offsetZ, speed, new Particle.DustOptions(color, 1));
+			center.getWorld().spawnParticle(mapParticleType(this), center, amount, offsetX, offsetY, offsetZ, speed, new Particle.DustOptions(color, 1), true);
 		} else {
-			center.getWorld().spawnParticle(mapParticleType(this), center, amount, offsetX, offsetY, offsetZ, speed, null);
+			center.getWorld().spawnParticle(mapParticleType(this), center, amount, offsetX, offsetY, offsetZ, speed, null, true);
 		}
 		//new ParticlePacket(this, offsetX, offsetY, offsetZ, speed, amount, range > 256, null).sendTo(center, range);
 	}
@@ -876,9 +876,9 @@ public enum ParticleEffect {
 
 		if (this == ParticleEffect.REDSTONE || this == ParticleEffect.RED_DUST) {
 			Color color = Color.fromRGB((int)(offsetX), (int)(offsetY), (int)(offsetZ));
-			center.getWorld().spawnParticle(mapParticleType(this), center, amount, offsetX, offsetY, offsetZ, speed, new Particle.DustOptions(color, 1));
+			center.getWorld().spawnParticle(mapParticleType(this), center, amount, offsetX, offsetY, offsetZ, speed, new Particle.DustOptions(color, 1), true);
 		} else {
-			center.getWorld().spawnParticle(mapParticleType(this), center, amount, offsetX, offsetY, offsetZ, speed, null);
+			center.getWorld().spawnParticle(mapParticleType(this), center, amount, offsetX, offsetY, offsetZ, speed, null, true);
 		}
 
 		//new ParticlePacket(this, offsetX, offsetY, offsetZ, speed, amount, isLongDistance(center, players), null).sendTo(center, players);
@@ -915,9 +915,9 @@ public enum ParticleEffect {
 
 		if (this == ParticleEffect.REDSTONE || this == ParticleEffect.RED_DUST) {
 			Color color = Color.fromRGB((int)(direction.getX()), (int)(direction.getY()), (int)(direction.getZ()));
-			center.getWorld().spawnParticle(mapParticleType(this), center, 1, direction.getX(), direction.getY(), direction.getZ(), speed, new Particle.DustOptions(color, 1));
+			center.getWorld().spawnParticle(mapParticleType(this), center, 1, direction.getX(), direction.getY(), direction.getZ(), speed, new Particle.DustOptions(color, 1), true);
 		} else {
-			center.getWorld().spawnParticle(mapParticleType(this), center, 1, direction.getX(), direction.getY(), direction.getZ(), speed, null);
+			center.getWorld().spawnParticle(mapParticleType(this), center, 1, direction.getX(), direction.getY(), direction.getZ(), speed, null, true);
 		}
 
 
@@ -954,9 +954,9 @@ public enum ParticleEffect {
 
 		if (this == ParticleEffect.REDSTONE || this == ParticleEffect.RED_DUST) {
 			Color color = Color.fromRGB((int)(direction.getX()), (int)(direction.getY()), (int)(direction.getZ()));
-			center.getWorld().spawnParticle(mapParticleType(this), center, 1, direction.getX(), direction.getY(), direction.getZ(), speed, new Particle.DustOptions(color, 1));
+			center.getWorld().spawnParticle(mapParticleType(this), center, 1, direction.getX(), direction.getY(), direction.getZ(), speed, new Particle.DustOptions(color, 1), true);
 		} else {
-			center.getWorld().spawnParticle(mapParticleType(this), center, 1, direction.getX(), direction.getY(), direction.getZ(), speed, null);
+			center.getWorld().spawnParticle(mapParticleType(this), center, 1, direction.getX(), direction.getY(), direction.getZ(), speed, null, true);
 		}
 
 		//new ParticlePacket(this, direction, speed, isLongDistance(center, players), null).sendTo(center, players);
@@ -997,12 +997,12 @@ public enum ParticleEffect {
 			BlockData blockData = (BlockData)data;
 			Material material = blockData.getMaterial();
 
-			center.getWorld().spawnParticle(mapParticleType(this), center, amount, offsetX, offsetY, offsetZ, speed, material.createBlockData());
+			center.getWorld().spawnParticle(mapParticleType(this), center, amount, offsetX, offsetY, offsetZ, speed, material.createBlockData(), true);
 		} else if (data instanceof ItemData) {
 			ItemData itemData = (ItemData)data;
 			Material material = itemData.getMaterial();
 
-			center.getWorld().spawnParticle(mapParticleType(this), center, amount, offsetX, offsetY, offsetZ, speed, new ItemStack(material));
+			center.getWorld().spawnParticle(mapParticleType(this), center, amount, offsetX, offsetY, offsetZ, speed, new ItemStack(material), true);
 		}
 
 		//new ParticlePacket(this, offsetX, offsetY, offsetZ, speed, amount, range > 256, data).sendTo(center, range);
@@ -1042,12 +1042,12 @@ public enum ParticleEffect {
 			BlockData blockData = (BlockData)data;
 			Material material = blockData.getMaterial();
 
-			center.getWorld().spawnParticle(mapParticleType(this), center, amount, offsetX, offsetY, offsetZ, speed, material.createBlockData());
+			center.getWorld().spawnParticle(mapParticleType(this), center, amount, offsetX, offsetY, offsetZ, speed, material.createBlockData(), true);
 		} else if (data instanceof ItemData) {
 			ItemData itemData = (ItemData)data;
 			Material material = itemData.getMaterial();
 
-			center.getWorld().spawnParticle(mapParticleType(this), center, amount, offsetX, offsetY, offsetZ, speed, new ItemStack(material));
+			center.getWorld().spawnParticle(mapParticleType(this), center, amount, offsetX, offsetY, offsetZ, speed, new ItemStack(material), true);
 		}
 		//new ParticlePacket(this, offsetX, offsetY, offsetZ, speed, amount, isLongDistance(center, players), data).sendTo(center, players);
 	}
@@ -1081,12 +1081,12 @@ public enum ParticleEffect {
 			BlockData blockData = (BlockData)data;
 			Material material = blockData.getMaterial();
 
-			center.getWorld().spawnParticle(mapParticleType(this), center, 1, direction.getX(), direction.getY(), direction.getZ(), speed, material.createBlockData());
+			center.getWorld().spawnParticle(mapParticleType(this), center, 1, direction.getX(), direction.getY(), direction.getZ(), speed, material.createBlockData(), true);
 		} else if (data instanceof ItemData) {
 			ItemData itemData = (ItemData)data;
 			Material material = itemData.getMaterial();
 
-			center.getWorld().spawnParticle(mapParticleType(this), center, 1, direction.getX(), direction.getY(), direction.getZ(), speed, new ItemStack(material));
+			center.getWorld().spawnParticle(mapParticleType(this), center, 1, direction.getX(), direction.getY(), direction.getZ(), speed, new ItemStack(material), true);
 		}
 
 		//new ParticlePacket(this, direction, speed, range > 256, data).sendTo(center, range);
@@ -1120,12 +1120,12 @@ public enum ParticleEffect {
 			BlockData blockData = (BlockData)data;
 			Material material = blockData.getMaterial();
 
-			center.getWorld().spawnParticle(mapParticleType(this), center, 1, direction.getX(), direction.getY(), direction.getZ(), speed, material.createBlockData());
+			center.getWorld().spawnParticle(mapParticleType(this), center, 1, direction.getX(), direction.getY(), direction.getZ(), speed, material.createBlockData(), true);
 		} else if (data instanceof ItemData) {
 			ItemData itemData = (ItemData)data;
 			Material material = itemData.getMaterial();
 
-			center.getWorld().spawnParticle(mapParticleType(this), center, 1, direction.getX(), direction.getY(), direction.getZ(), speed, new ItemStack(material));
+			center.getWorld().spawnParticle(mapParticleType(this), center, 1, direction.getX(), direction.getY(), direction.getZ(), speed, new ItemStack(material), true);
 		}
 		//new ParticlePacket(this, direction, speed, isLongDistance(center, players), data).sendTo(center, players);
 	}

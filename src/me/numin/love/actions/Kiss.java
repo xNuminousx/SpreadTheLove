@@ -23,13 +23,9 @@ public class Kiss {
 			target.sendTitle(header, from);
 			sender.sendMessage(randomizedMessage(targetName));
 			
-			Location targetEye = target.getLocation();
-			Location senderEye = sender.getLocation();
-			double x = 0.2;
-			double y = 1.5;
-			double z = 0.2;
-			targetEye.add(x, y, z);
-			senderEye.add(x, y, z);
+			Location targetEye = target.getEyeLocation().add(target.getEyeLocation().getDirection().multiply(0.4));
+			Location senderEye = sender.getEyeLocation().add(sender.getEyeLocation().getDirection().multiply(0.4));
+			
 			ParticleEffect.WATER_WAKE.display(0, 0, 0, 0.02F, 5, targetEye, 10);
 			ParticleEffect.WATER_WAKE.display(0, 0, 0, 0.02F, 5, senderEye, 10);
 			

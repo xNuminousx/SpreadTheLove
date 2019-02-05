@@ -15,6 +15,7 @@ public class Main extends JavaPlugin implements Listener {
 	
 	public static Main plugin;
 	public ArrayList<Player> love = new ArrayList<Player>();
+	public ArrayList<Player> lgbt = new ArrayList<Player>();
 	
 	public void onEnable() {
 		plugin = this;
@@ -29,6 +30,7 @@ public class Main extends JavaPlugin implements Listener {
 	}
 	public void onDisable() {
 		love.clear();
+		lgbt.clear();
 		plugin.getLogger().info("Successfully enabled SpreadTheLove v" + plugin.getDescription().getVersion());
 	}
 }

@@ -13,7 +13,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.numin.love.Main;
-import me.numin.love.api.API;
 import me.numin.love.api.API.TrailType;
 import me.numin.love.utils.ParticleEffect;
 
@@ -23,12 +22,14 @@ public class LoveTrail implements Listener {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				if (Main.plugin.love.contains(player)) {
+				if (Main.plugin.love.contains(player) && player.isOnline()) {
 					progress(player, TrailType.STILL);
 					progress(player, TrailType.SNEAK);
+				} else {
+					cancel();
 				}
 			}
-		}.runTaskTimer(Main.plugin, 0, 4);
+		}.runTaskTimer(Main.plugin, 0, 5);
 	}
 	
 	public void progress(Player player, TrailType trailtype) {
@@ -39,9 +40,9 @@ public class LoveTrail implements Listener {
 		} else if (trailtype == TrailType.STILL) {
 			
 			//still animation
-			ParticleEffect.HEART.display(player.getLocation(), 1, 1, 1, 0, 1);
-			if (API.enableLGBT) {
-				player.getWorld().spawnParticle(Particle.REDSTONE, player.getLocation(), 5, 1, 1, 1, 1, rainbow());
+			ParticleEffect.HEART.display(player.getLocation(), 1, 2, 1, 0, 1);
+			if (Main.plugin.lgbt.contains(player)) {
+				player.getWorld().spawnParticle(Particle.REDSTONE, player.getLocation(), 4, 1, 1, 1, 1, rainbow());
 			}
 			
 		} else if (trailtype == TrailType.SNEAK && player.isSneaking()) {
@@ -51,11 +52,10 @@ public class LoveTrail implements Listener {
 			int points = 20;
 			double size = 20;
 			double posHeight = 2.5;
-			boolean isRainbow = API.enableLGBT();
 			Color color;
 			DustOptions dustOptions;
 			int red = 255,green = 0,blue = 0;
-			if (isRainbow) {
+			if (Main.plugin.lgbt.contains(player)) {
 				dustOptions = rainbow();
 			} else {
 				color = Color.fromBGR(blue, green, red);

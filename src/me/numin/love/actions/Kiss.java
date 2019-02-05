@@ -25,7 +25,6 @@ public class Kiss {
 			
 			Location targetEye = target.getEyeLocation().add(target.getEyeLocation().getDirection().multiply(0.4));
 			Location senderEye = sender.getEyeLocation().add(sender.getEyeLocation().getDirection().multiply(0.4));
-			
 			ParticleEffect.WATER_WAKE.display(0, 0, 0, 0.02F, 5, targetEye, 10);
 			ParticleEffect.WATER_WAKE.display(0, 0, 0, 0.02F, 5, senderEye, 10);
 			

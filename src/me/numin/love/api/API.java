@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -14,6 +15,9 @@ public class API {
 	
 	public enum TrailType {
 		MOVE, STILL, SNEAK
+	}
+	public enum PermType {
+		LOVETRAIL, HUG, KISS
 	}
 	
 	public static ItemStack createItem(Material icon, String name, ChatColor color, List<String> description) {
@@ -45,6 +49,22 @@ public class API {
 	public static boolean enableLGBT(boolean arg) {
 		enableLGBT = arg;
 		return enableLGBT;
+	}
+	
+	public static boolean hasPermission(Player player, PermType permType) {
+		String perm = null;
+		if (permType == PermType.LOVETRAIL) {
+			perm = "lovetrail";
+		} else if (permType == PermType.HUG) {
+			perm = "hug";
+		} else if (permType == PermType.KISS) {
+			perm = "kiss";
+		}
+		if (player.hasPermission("love." + perm)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

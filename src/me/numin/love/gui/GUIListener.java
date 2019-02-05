@@ -21,6 +21,7 @@ import me.numin.love.utils.AnvilGUI.AnvilClickEvent;
 public class GUIListener implements Listener {
 	
 	private String bullet = ChatColor.DARK_RED + "♡ ";
+	String noPerm = bullet + ChatColor.RED + "You do not have the necessary permissions.";
 	
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent event) {

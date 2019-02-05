@@ -32,9 +32,11 @@ public class Hug {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
-					heartSpiral(target);
-					if (System.currentTimeMillis() > time + 2000) {
-						cancel();
+					if (target.isOnline()) {
+						heartSpiral(target);
+						if (System.currentTimeMillis() > time + 2000) {
+							cancel();
+						}
 					}
 				}
 			}.runTaskTimer(Main.plugin, 0, 3);

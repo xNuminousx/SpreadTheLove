@@ -11,6 +11,7 @@ import me.numin.love.Main;
 import me.numin.love.actions.Hug;
 import me.numin.love.actions.Kiss;
 import me.numin.love.api.API;
+import me.numin.love.api.API.PermType;
 import me.numin.love.gui.GUI;
 import me.numin.love.trails.LoveTrail;
 
@@ -23,6 +24,7 @@ public class Commands implements CommandExecutor {
 		String bullet = ChatColor.DARK_RED + "♡ ";
 		String unspecifiedPlayer = bullet + ChatColor.RED + "Please specify a player.";
 		String invalidPlayer = bullet + ChatColor.RED + "That player may be offline or does not exist.";
+		String noPerm = bullet + ChatColor.RED + "You do not have the necessary permissions.";
 		String unknownCommand = bullet + ChatColor.RED + "Unknown command! Try: " + ChatColor.YELLOW + "/spreadthelove" + ChatColor.RED + " or " + ChatColor.YELLOW + "/stl";
 		
 		String prideEnabled = ChatColor.RED + "" + ChatColor.BOLD + "P" +
@@ -90,14 +92,14 @@ public class Commands implements CommandExecutor {
 						return true;
 					
 					//Trail command	
-					} else if (args[0].equalsIgnoreCase("lovetrail")) {
+					} else if (args[0].equalsIgnoreCase("lovetrail") && API.hasPermission(p, PermType.LOVETRAIL)) {
 						
-						if (API.playTrail == false) {
+						if (API.playTrail == false && !Main.plugin.love.contains(p)) {
 							Main.plugin.love.add(p);
 							API.playTrail = true;
 							new LoveTrail(p);
 							p.sendMessage(bullet + ChatColor.GREEN + "LoveTrail enabled");
-						} else {
+						} else if (Main.plugin.love.contains(p)){
 							Main.plugin.love.remove(p);
 							API.playTrail = false;
 							p.sendMessage(bullet + ChatColor.RED + "LoveTrail disabled");
@@ -109,17 +111,21 @@ public class Commands implements CommandExecutor {
 						GUI.openGUI(p);
 						return true;
 					} else if (args[0].equalsIgnoreCase("pride")) {
-						if (!API.enableLGBT()) {
-							API.enableLGBT(true);
+						if (!Main.plugin.lgbt.contains(p)) {
+							Main.plugin.lgbt.add(p);
 							p.sendMessage(prideEnabled);
 						} else {
-							API.enableLGBT(false);
+							Main.plugin.lgbt.remove(p);
 							p.sendMessage(prideDisabled);
 						}
 						return true;
 					} else {
-						sender.sendMessage(unknownCommand);
-						return true;
+						if (!API.hasPermission(p, PermType.LOVETRAIL)) {
+							sender.sendMessage(noPerm);
+						} else {
+							sender.sendMessage(unknownCommand);
+						}
+						return false;
 					}
 				} else {
 					sender.sendMessage("You're not a player!");
@@ -130,11 +136,13 @@ public class Commands implements CommandExecutor {
 			//3 Word Commands	
 			} else if (args.length == 2) {
 				if (sender instanceof Player) {
-					
-					if (args[0].equalsIgnoreCase("hug") && !args[1].isEmpty()) {
-						for (Player target : Bukkit.getOnlinePlayers()) {
-							if (args[1].equalsIgnoreCase(target.getName())) {
-								new Hug((Player) sender, target);
+					Player player = (Player) sender;
+					if (args[0].equalsIgnoreCase("hug") && !args[1].isEmpty() && API.hasPermission(player, PermType.HUG)) {
+						for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+							String targetName = onlinePlayer.getName();
+							String input = args[1];
+							if (input.equalsIgnoreCase(targetName)) {
+								new Hug((Player) sender, onlinePlayer);
 								return true;
 							} else {
 								sender.sendMessage(invalidPlayer);
@@ -142,10 +150,12 @@ public class Commands implements CommandExecutor {
 							}
 						}
 						return true;
-					} else if (args[0].equalsIgnoreCase("kiss") && !args[1].isEmpty()) {
-						for (Player target : Bukkit.getOnlinePlayers()) {
-							if (args[1].equalsIgnoreCase(target.getName())) {
-								new Kiss((Player) sender, target);
+					} else if (args[0].equalsIgnoreCase("kiss") && !args[1].isEmpty() && API.hasPermission(player, PermType.KISS)) {
+						for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+							String targetName = onlinePlayer.getName();
+							String input = args[1];
+							if (input.equalsIgnoreCase(targetName)) {
+								new Kiss((Player) sender, onlinePlayer);
 								return true;
 							} else {
 								sender.sendMessage(invalidPlayer);
@@ -153,7 +163,11 @@ public class Commands implements CommandExecutor {
 							}
 						}
 					} else {
-						sender.sendMessage(unknownCommand);
+						if (!API.hasPermission(player, PermType.KISS) || !API.hasPermission(player, PermType.HUG)) {
+							sender.sendMessage(noPerm);
+						} else {
+							sender.sendMessage(unknownCommand);
+						}
 						return false;
 					}
 				} else {

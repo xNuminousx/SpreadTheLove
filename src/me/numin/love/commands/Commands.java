@@ -11,14 +11,11 @@ import me.numin.love.Main;
 import me.numin.love.actions.Hug;
 import me.numin.love.actions.Kiss;
 import me.numin.love.api.API;
-import me.numin.love.api.API.PermType;
 import me.numin.love.gui.GUI;
 import me.numin.love.trails.LoveTrail;
 
 public class Commands implements CommandExecutor {
 	
-	
-
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String lable, String[] args) {
 		String bullet = ChatColor.DARK_RED + "♡ ";
@@ -83,32 +80,47 @@ public class Commands implements CommandExecutor {
 					
 					//Hug command
 					if (args[0].equalsIgnoreCase("hug")) {
-						p.sendMessage(unspecifiedPlayer);
+						if (!p.hasPermission("love.hug")) {
+							p.sendMessage(noPerm);
+						} else {
+							p.sendMessage(unspecifiedPlayer);
+						}
 						return true;
 					
 					//Kiss command	
 					} else if (args[0].equalsIgnoreCase("kiss")) {
-						p.sendMessage(unspecifiedPlayer);
+						if (!p.hasPermission("love.kiss")) {
+							p.sendMessage(noPerm);
+						} else {
+							p.sendMessage(unspecifiedPlayer);
+						}
 						return true;
 					
 					//Trail command	
-					} else if (args[0].equalsIgnoreCase("lovetrail") && API.hasPermission(p, PermType.LOVETRAIL)) {
-						
-						if (API.playTrail == false && !Main.plugin.love.contains(p)) {
-							Main.plugin.love.add(p);
-							API.playTrail = true;
-							new LoveTrail(p);
-							p.sendMessage(bullet + ChatColor.GREEN + "LoveTrail enabled");
-						} else if (Main.plugin.love.contains(p)){
-							Main.plugin.love.remove(p);
-							API.playTrail = false;
-							p.sendMessage(bullet + ChatColor.RED + "LoveTrail disabled");
+					} else if (args[0].equalsIgnoreCase("lovetrail")) {
+						if (!p.hasPermission("love.lovetrail")) {
+							p.sendMessage(noPerm);
+						} else {
+							if (API.playTrail == false && !Main.plugin.love.contains(p)) {
+								Main.plugin.love.add(p);
+								API.playTrail = true;
+								new LoveTrail(p);
+								p.sendMessage(bullet + ChatColor.GREEN + "LoveTrail enabled");
+							} else if (Main.plugin.love.contains(p)){
+								Main.plugin.love.remove(p);
+								API.playTrail = false;
+								p.sendMessage(bullet + ChatColor.RED + "LoveTrail disabled");
+							}
 						}
 						return true;
 					
 					//GUI command	
 					} else if (args[0].equalsIgnoreCase("gui")) {
-						GUI.openGUI(p);
+						if (!p.hasPermission("love.gui")) {
+							p.sendMessage(noPerm);
+						} else {
+							GUI.openGUI(p);
+						}
 						return true;
 					} else if (args[0].equalsIgnoreCase("pride")) {
 						if (!Main.plugin.lgbt.contains(p)) {
@@ -120,16 +132,12 @@ public class Commands implements CommandExecutor {
 						}
 						return true;
 					} else {
-						if (!API.hasPermission(p, PermType.LOVETRAIL)) {
-							sender.sendMessage(noPerm);
-						} else {
-							sender.sendMessage(unknownCommand);
-						}
-						return false;
+						p.sendMessage(unknownCommand);
+						return true;
 					}
 				} else {
 					sender.sendMessage("You're not a player!");
-					return false;
+					return true;
 				}
 			
 				
@@ -137,38 +145,39 @@ public class Commands implements CommandExecutor {
 			} else if (args.length == 2) {
 				if (sender instanceof Player) {
 					Player player = (Player) sender;
-					if (args[0].equalsIgnoreCase("hug") && !args[1].isEmpty() && API.hasPermission(player, PermType.HUG)) {
-						for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-							String targetName = onlinePlayer.getName();
-							String input = args[1];
-							if (input.equalsIgnoreCase(targetName)) {
-								new Hug((Player) sender, onlinePlayer);
-								return true;
-							} else {
-								sender.sendMessage(invalidPlayer);
-								return true;
+					if (args[0].equalsIgnoreCase("hug") && !args[1].isEmpty()) {
+						if (player.hasPermission("love.hug")) {
+							for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+								String targetName = onlinePlayer.getName();
+								String input = args[1];
+								if (input.equalsIgnoreCase(targetName)) {
+									new Hug((Player) sender, onlinePlayer);
+								} else {
+									sender.sendMessage(invalidPlayer);
+								}
 							}
+						} else {
+							player.sendMessage(noPerm);
 						}
 						return true;
-					} else if (args[0].equalsIgnoreCase("kiss") && !args[1].isEmpty() && API.hasPermission(player, PermType.KISS)) {
-						for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-							String targetName = onlinePlayer.getName();
-							String input = args[1];
-							if (input.equalsIgnoreCase(targetName)) {
-								new Kiss((Player) sender, onlinePlayer);
-								return true;
-							} else {
-								sender.sendMessage(invalidPlayer);
-								return true;
+					} else if (args[0].equalsIgnoreCase("kiss") && !args[1].isEmpty()) {
+						if (player.hasPermission("love.kiss")) {
+							for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+								String targetName = onlinePlayer.getName();
+								String input = args[1];
+								if (input.equalsIgnoreCase(targetName)) {
+									new Kiss((Player) sender, onlinePlayer);
+								} else {
+									sender.sendMessage(invalidPlayer);
+								}
 							}
-						}
-					} else {
-						if (!API.hasPermission(player, PermType.KISS) || !API.hasPermission(player, PermType.HUG)) {
-							sender.sendMessage(noPerm);
 						} else {
-							sender.sendMessage(unknownCommand);
+							player.sendMessage(noPerm);
 						}
-						return false;
+						return true;
+					} else {
+						player.sendMessage(unknownCommand);
+						return true;
 					}
 				} else {
 					sender.sendMessage("You're not a player!");

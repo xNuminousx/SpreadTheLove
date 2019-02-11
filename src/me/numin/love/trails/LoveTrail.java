@@ -100,7 +100,8 @@ public class LoveTrail implements Listener {
 		int r = rand.nextInt(255);
 		int g = rand.nextInt(255);
 		int b = rand.nextInt(255);
-		Color color = Color.fromBGR(b, g, r);
+		
+		Color color = Color.fromRGB(r, g, b);
 		return new DustOptions(color, 1);
 	}
 	

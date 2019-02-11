@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
 import me.numin.love.Main;
 import me.numin.love.actions.Hug;
@@ -27,10 +28,12 @@ public class GUIListener implements Listener {
 	public void onInventoryClick(InventoryClickEvent event) {
 		Player player = (Player)event.getWhoClicked();
 		
-		if (!event.getClickedInventory().getName().equalsIgnoreCase("Spread the Love!")) {
+		if (!event.getInventory().getTitle().contains("Spread the Love!")) {
 			return;
-		
-		} else if (event.getCurrentItem() == null || event.getCurrentItem().getItemMeta() == null || event.getCurrentItem().getItemMeta().getDisplayName().isEmpty()) {
+		} else if ((event.getCurrentItem() == null) || 
+				(event.getCurrentItem() == new ItemStack(Material.AIR)) || 
+				event.getCurrentItem().getItemMeta() == null || 
+				event.getCurrentItem().getItemMeta().getDisplayName().isEmpty()) {
 			event.setCancelled(true);
 			return;
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("To Wear Love")) {

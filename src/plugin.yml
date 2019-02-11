@@ -15,8 +15,11 @@ permissions:
     default: op
     description: Access to the lovetrail.
   love.hug:
-    default: op
+    default: true
     description: Access to the huggies.
   love.kiss:
-    default: op
+    default: true
     description: Access to the smoochies.
+  love.gui:
+    default: op
+    description: Alternative to commands.

@@ -14,12 +14,20 @@ public class Kiss {
 	
 	@SuppressWarnings("deprecation")
 	public Kiss(Player sender, Player target) {
+		boolean progress;
 		String senderName = sender.getName();
 		String targetName = target.getName();
 		String header = ChatColor.DARK_RED + "* " + ChatColor.LIGHT_PURPLE + "smooch" + ChatColor.DARK_RED + " *";
 		String from = ChatColor.DARK_RED + "From: " + senderName;
 		
-		if (target.getWorld().equals(sender.getWorld())) {
+		if (!target.isOnline() || target.equals(null)) {
+			sender.sendMessage(bullet + ChatColor.RED + "That player may be offline or does not exist.");
+			progress = false;
+			return;
+		} else {
+			progress = true;
+		}
+		if (target.getWorld().equals(sender.getWorld()) && progress) {
 			target.sendTitle(header, from);
 			sender.sendMessage(randomizedMessage(targetName));
 			
@@ -27,9 +35,11 @@ public class Kiss {
 			Location senderEye = sender.getEyeLocation().add(sender.getEyeLocation().getDirection().multiply(0.4));
 			ParticleEffect.WATER_WAKE.display(0, 0, 0, 0.02F, 5, targetEye, 10);
 			ParticleEffect.WATER_WAKE.display(0, 0, 0, 0.02F, 5, senderEye, 10);
+			return;
 			
 		} else {
-			sender.sendMessage(bullet + ChatColor.RED + "That target is not in your world.");
+			sender.sendMessage(bullet + ChatColor.RED + "That player is not in your world.");
+			return;
 		}
 	}
 	

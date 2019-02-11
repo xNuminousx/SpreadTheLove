@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import me.numin.love.Main;
 import me.numin.love.actions.Hug;
 import me.numin.love.actions.Kiss;
-import me.numin.love.api.API;
 import me.numin.love.gui.GUI;
 import me.numin.love.trails.LoveTrail;
 
@@ -20,7 +19,6 @@ public class Commands implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String lable, String[] args) {
 		String bullet = ChatColor.DARK_RED + "♡ ";
 		String unspecifiedPlayer = bullet + ChatColor.RED + "Please specify a player.";
-		String invalidPlayer = bullet + ChatColor.RED + "That player may be offline or does not exist.";
 		String noPerm = bullet + ChatColor.RED + "You do not have the necessary permissions.";
 		String unknownCommand = bullet + ChatColor.RED + "Unknown command! Try: " + ChatColor.YELLOW + "/spreadthelove" + ChatColor.RED + " or " + ChatColor.YELLOW + "/stl";
 		
@@ -101,14 +99,12 @@ public class Commands implements CommandExecutor {
 						if (!p.hasPermission("love.lovetrail")) {
 							p.sendMessage(noPerm);
 						} else {
-							if (API.playTrail == false && !Main.plugin.love.contains(p)) {
+							if (!Main.plugin.love.contains(p)) {
 								Main.plugin.love.add(p);
-								API.playTrail = true;
 								new LoveTrail(p);
 								p.sendMessage(bullet + ChatColor.GREEN + "LoveTrail enabled");
 							} else if (Main.plugin.love.contains(p)){
 								Main.plugin.love.remove(p);
-								API.playTrail = false;
 								p.sendMessage(bullet + ChatColor.RED + "LoveTrail disabled");
 							}
 						}
@@ -152,8 +148,6 @@ public class Commands implements CommandExecutor {
 								String input = args[1];
 								if (input.equalsIgnoreCase(targetName)) {
 									new Hug((Player) sender, onlinePlayer);
-								} else {
-									sender.sendMessage(invalidPlayer);
 								}
 							}
 						} else {
@@ -167,8 +161,6 @@ public class Commands implements CommandExecutor {
 								String input = args[1];
 								if (input.equalsIgnoreCase(targetName)) {
 									new Kiss((Player) sender, onlinePlayer);
-								} else {
-									sender.sendMessage(invalidPlayer);
 								}
 							}
 						} else {

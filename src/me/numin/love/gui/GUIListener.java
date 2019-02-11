@@ -39,14 +39,12 @@ public class GUIListener implements Listener {
 		} else if (event.getCurrentItem().getItemMeta().getDisplayName().contains("To Wear Love")) {
 			event.setCancelled(true);
 			
-			if (API.playTrail == false) {
+			if (!Main.plugin.love.contains(player)) {
 				Main.plugin.love.add(player);
-				API.playTrail = true;
 				new LoveTrail(player);
 				player.sendMessage(bullet + ChatColor.GREEN + "LoveTrail enabled");
 			} else {
 				Main.plugin.love.remove(player);
-				API.playTrail = false;
 				player.sendMessage(bullet + ChatColor.RED + "LoveTrail disabled");
 			}
 			player.closeInventory();
@@ -66,8 +64,6 @@ public class GUIListener implements Listener {
 						for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
 							if (onlinePlayer.getName().equalsIgnoreCase(event.getName())) {
 								new Hug(player, onlinePlayer);
-							} else {
-								onlinePlayer.sendMessage(ChatColor.DARK_RED + "♡ " + ChatColor.RED + "The player may be offline or does not exist.");
 							}
 						}
 					} else {
@@ -77,7 +73,7 @@ public class GUIListener implements Listener {
 				}
             	
             });
-            gui.setSlot(AnvilGUI.AnvilSlot.INPUT_LEFT, API.createItem(Material.PAPER, "Enter Name"));
+            gui.setSlot(AnvilGUI.AnvilSlot.INPUT_LEFT, API.createItem(Material.PAPER, "Enter a Name"));
             
             try {
                 gui.open();
@@ -104,8 +100,6 @@ public class GUIListener implements Listener {
 						for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
 							if (onlinePlayer.getName().equalsIgnoreCase(event.getName())) {
 								new Kiss(player, onlinePlayer);
-							} else {
-								onlinePlayer.sendMessage(ChatColor.DARK_RED + "♡ " + ChatColor.RED + "The player may be offline or does not exist.");
 							}
 						}
 					} else {

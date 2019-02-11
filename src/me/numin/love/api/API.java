@@ -10,13 +10,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class API {
 	
 	public static boolean enableLGBT;
-	public static boolean playTrail = false;
 	
 	public enum TrailType {
 		MOVE, STILL, SNEAK
-	}
-	public enum PermType {
-		LOVETRAIL, HUG, KISS, GUI
 	}
 	
 	public static ItemStack createItem(Material icon, String name, ChatColor color, List<String> description) {
@@ -41,13 +37,4 @@ public class API {
 		
 		return item;
 	}
-	
-	public static boolean enableLGBT() {
-		return enableLGBT;
-	}
-	public static boolean enableLGBT(boolean arg) {
-		enableLGBT = arg;
-		return enableLGBT;
-	}
-
 }

@@ -19,12 +19,20 @@ public class Hug {
 
 	@SuppressWarnings("deprecation")
 	public Hug(Player sender, Player target) {
+		boolean progress;
 		time = System.currentTimeMillis();
 		String senderName = sender.getName();
 		String targetName = target.getName();
 		String pinkHeart = ChatColor.LIGHT_PURPLE + "♥";
 		
-		if (target.getWorld().equals(sender.getWorld())) {
+		if (!target.isOnline() || target.equals(null)) {
+			sender.sendMessage(bullet + ChatColor.RED + "That player may be offline or does not exist.");
+			progress = false;
+			return;
+		} else {
+			progress = true;
+		}
+		if (target.getWorld().equals(sender.getWorld()) && progress) {
 			String header = pinkHeart + ChatColor.LIGHT_PURPLE + " " + ChatColor.BOLD + "huggies " + pinkHeart;
 			String from = ChatColor.DARK_RED + "From: " + senderName;
 			target.sendTitle(header, from);
@@ -41,9 +49,9 @@ public class Hug {
 				}
 			}.runTaskTimer(Main.plugin, 0, 3);
 			sender.sendMessage(randomizedMessage(targetName));
-			
 		} else {
-			sender.sendMessage(bullet + ChatColor.RED + "That target is not in your world.");
+			sender.sendMessage(bullet + ChatColor.RED + "That player is not in your world.");
+			return;
 		}
 	}
 	

@@ -12,7 +12,7 @@ public class API {
 	public static boolean enableLGBT;
 	
 	public enum TrailType {
-		MOVE, STILL, SNEAK
+		MOVE, STILL
 	}
 	
 	public static ItemStack createItem(Material icon, String name, ChatColor color, List<String> description) {
